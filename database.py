@@ -55,20 +55,9 @@ def leveling(source):
     d[lst_complete[0]] = level
     d[lst_complete[1]] = materials
     d[lst_complete[2]] = mora
-    df = pd.DataFrame(data=d)
-    return df
-
-weapon_types = ['Swords','Claymores','Polearms','Catalysts','Bows']
-weapon_types_sites = [
-    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%ED%95%9C%EC%86%90%EA%B2%80',
-    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EC%96%91%EC%86%90%EA%B2%80',
-    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EC%9E%A5%EB%B3%91%EA%B8%B0',
-    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EB%B2%95%EA%B5%AC',
-    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%ED%99%9C'
-]
-
-for i in weapon_types_sites:
-    all_data(i)
+    
+    df_leveling = pd.DataFrame(data=d)
+    return df_leveling
 
 def all_data(source):
     claymore_site_response = requests.get(source)
@@ -88,3 +77,16 @@ def all_data(source):
             print(leveling(all_links[0]))
         except IndexError:
             pass
+
+
+weapon_types = ['Swords','Claymores','Polearms','Catalysts','Bows']
+weapon_types_sites = [
+    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%ED%95%9C%EC%86%90%EA%B2%80',
+    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EC%96%91%EC%86%90%EA%B2%80',
+    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EC%9E%A5%EB%B3%91%EA%B8%B0',
+    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EB%B2%95%EA%B5%AC',
+    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%ED%99%9C'
+]
+
+for i in weapon_types_sites:
+    all_data(i)
