@@ -55,17 +55,19 @@ def leveling(source):
     d[lst_complete[0]] = level
     d[lst_complete[1]] = materials
     d[lst_complete[2]] = mora
-    
+
     df_leveling = pd.DataFrame(data=d)
     return df_leveling
 
-def all_data(source):
-    claymore_site_response = requests.get(source)
-    claymore_site = claymore_site_response.content
+def all_data_each_weapon(source):
+    weapon_site_response = requests.get(source)
+    weapon_site = weapon_site_response.content
 
-    claymore_soup = BeautifulSoup(claymore_site, 'html.parser')
+    weapon_soup = BeautifulSoup(weapon_site, 'html.parser')
 
-    all_links_html = claymore_soup.find_all('a', href = True)
+    all_links_html = weapon_soup.find_all('a', href = True)
+
+    print(all_links_html)
 
     all_links = []
     for i in all_links_html:
@@ -74,7 +76,8 @@ def all_data(source):
 
     for i in all_links:
         try:
-            print(leveling(all_links[0]))
+            temp_dic = leveling(i)
+
         except IndexError:
             pass
 
@@ -89,4 +92,4 @@ weapon_types_sites = [
 ]
 
 for i in weapon_types_sites:
-    all_data(i)
+    all_data_each_weapon(i)
