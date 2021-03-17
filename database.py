@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import numpy as np
 import pandas as pd
-
+import re
 
 def leveling(source):
     webpage_response = requests.get(source)
@@ -23,7 +23,6 @@ def leveling(source):
         pass
     else:
         lst_complete = [i for i in lst if i != ' ']
-        print(lst_complete)
 
 
     level = []
@@ -65,24 +64,29 @@ def all_data_each_weapon(source):
 
     weapon_soup = BeautifulSoup(weapon_site, 'html.parser')
 
-    all_links_html = weapon_soup.find_all('a', href = True)
+    #all_links_html = weapon_soup.find_all('a', href = True)
+    all_links_html = weapon_soup.find_all(href = re.compile('^/w/%'))
 
-    print(all_links_html)
-
-    all_links = []
+    all_links = {}
     for i in all_links_html:
-        if '/w/%' in i['href']:
-            all_links.append('https://namu.wiki'+i['href'])
+        if i.string != None and i.string != '원신/등장인물':
+            all_links[i.string] = 'https://namu.wiki'+i['href']
+    
+    lst_leveling = []
+    for i in range(len(all_links)):
+        leveling_df = leveling(list(all_links.values())[i])
+        leveling_df['캐릭터'] = list(all_links.keys())[i]
+        lst_leveling.append(leveling_df)
+    
+    lst_leveling_complete = pd.concat(lst_leveling)
+    lst_leveling_complete['캐릭터'] = lst_leveling_complete['캐릭터'].replace('\(원신\)','',regex=True)
+    return lst_leveling_complete
 
-    for i in all_links:
-        try:
-            temp_dic = leveling(i)
-
-        except IndexError:
-            pass
 
 
-weapon_types = ['Swords','Claymores','Polearms','Catalysts','Bows']
+
+#weapon_types = ['Swords','Claymores','Polearms','Catalysts','Bows']
+weapon_types = ['한손검','양손검','장병기','법구','활']
 weapon_types_sites = [
     'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%ED%95%9C%EC%86%90%EA%B2%80',
     'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EC%96%91%EC%86%90%EA%B2%80',
@@ -91,5 +95,13 @@ weapon_types_sites = [
     'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%ED%99%9C'
 ]
 
-for i in weapon_types_sites:
-    all_data_each_weapon(i)
+lst_all_data = []
+for i in range(len(weapon_types_sites)):
+    df_each_weapon = all_data_each_weapon(weapon_types_sites[i])
+    df_each_weapon['무기'] = weapon_types[i]
+    lst_all_data.append(df_each_weapon)
+
+df_all_data = pd.concat(lst_all_data, ignore_index=True)
+df_all_data = df_all_data[['무기','캐릭터','돌파 레벨','캐릭터 육성 소재','모라']]
+
+df_all_data.to_csv('Leveling_guide.csv')
