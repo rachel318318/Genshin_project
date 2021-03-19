@@ -85,22 +85,22 @@ def all_data_each_weapon(source):
 
 
 #weapon_types = ['Swords','Claymores','Polearms','Catalysts','Bows']
-weapon_types = ['한손검','양손검','장병기','법구','활']
-weapon_types_sites = [
-    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%ED%95%9C%EC%86%90%EA%B2%80',
-    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EC%96%91%EC%86%90%EA%B2%80',
-    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EC%9E%A5%EB%B3%91%EA%B8%B0',
-    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EB%B2%95%EA%B5%AC',
-    'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%ED%99%9C'
-]
+# weapon_types = ['한손검','양손검','장병기','법구','활']
+# weapon_types_sites = [
+#     'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%ED%95%9C%EC%86%90%EA%B2%80',
+#     'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EC%96%91%EC%86%90%EA%B2%80',
+#     'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EC%9E%A5%EB%B3%91%EA%B8%B0',
+#     'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%EB%B2%95%EA%B5%AC',
+#     'https://namu.wiki/w/%EB%B6%84%EB%A5%98:%EC%9B%90%EC%8B%A0/%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4%EB%B8%94%20%EC%BA%90%EB%A6%AD%ED%84%B0/%ED%99%9C'
+# ]
 
-lst_all_data = []
-for i in range(len(weapon_types_sites)):
-    df_each_weapon = all_data_each_weapon(weapon_types_sites[i])
-    df_each_weapon['무기'] = weapon_types[i]
-    lst_all_data.append(df_each_weapon)
+# lst_all_data = []
+# for i in range(len(weapon_types_sites)):
+#     df_each_weapon = all_data_each_weapon(weapon_types_sites[i])
+#     df_each_weapon['무기'] = weapon_types[i]
+#     lst_all_data.append(df_each_weapon)
 
-df_all_data = pd.concat(lst_all_data, ignore_index=True)
-df_all_data = df_all_data[['무기','캐릭터','돌파 레벨','캐릭터 육성 소재','모라']]
+# df_all_data = pd.concat(lst_all_data, ignore_index=True)
+# df_all_data = df_all_data[['무기','캐릭터','돌파 레벨','캐릭터 육성 소재','모라']]
 
-df_all_data.to_csv('Leveling_guide.csv')
+# df_all_data.to_csv('Leveling_guide.csv')
