@@ -57,14 +57,17 @@ def leveling(source):
     df_leveling = pd.DataFrame(data=d)
     return df_leveling
 
-def all_data_each_weapon(source):
-    weapon_site_response = requests.get(source)
-    weapon_site = weapon_site_response.content
+def all_data(source):
+    main_site_response = requests.get(source)
+    main_site = main_site_response.content
 
-    weapon_soup = BeautifulSoup(weapon_site, 'html.parser')
+    main_soup = BeautifulSoup(main_site, 'html.parser')
 
     #all_links_html = weapon_soup.find_all('a', href = True)
-    all_links_html = weapon_soup.find_all(href = re.compile('^/w/%'))
+    #all_links_html = weapon_soup.find_all(href = re.compile('^/w/%'))
+    
+    ## Goes into 캐릭터 link
+    all_links_html = main_soup.find_all()
 
     all_links = {}
     for i in all_links_html:
