@@ -83,31 +83,12 @@ def character_and_weapon(source):
     for i in range(len(all_character_links)):
         leveling_df = leveling(list(all_character_links.values())[i])
         leveling_df['캐릭터'] = list(all_character_links.keys())[i]
-        leveling_df['무기'] = weapon_type(list(all_character_links.values())[i])
         lst_leveling.append(leveling_df)
         print(lst_leveling)
     
     lst_leveling_complete = pd.concat(lst_leveling)
     lst_leveling_complete['캐릭터'] = lst_leveling_complete['캐릭터'].replace('\(원신\)','',regex=True)
     return lst_leveling_complete
-
-def weapon_type(source):
-    weapon_types = ['한손검','양손검','장병기','법구','활']
-
-    webpage_response = requests.get(source)
-
-    webpage = webpage_response.content
-
-    soup = BeautifulSoup(webpage, 'html.parser')
-
-    weapon = soup.find_all(attrs = {'class':'wiki-paragraph'})
-
-    characters_weapon = ""
-    for i in weapon:
-        if i.get_text() in weapon_types:
-            characters_weapon = i.get_text()
-            return characters_weapon
-
 
 def all_data(source):
     main_site_response = requests.get(source)
