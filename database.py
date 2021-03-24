@@ -67,7 +67,12 @@ def all_data(source):
     #all_links_html = weapon_soup.find_all(href = re.compile('^/w/%'))
     
     ## Goes into 캐릭터 link
-    all_links_html = main_soup.find_all()
+
+    character_links_html = main_soup.find_all('a', string = "캐릭터")
+    weapon_links_html = main_soup.find_all('a', string = "무기")
+
+    print(character_links_html)
+    print(weapon_links_html)
 
     all_links = {}
     for i in all_links_html:
@@ -84,7 +89,7 @@ def all_data(source):
     lst_leveling_complete['캐릭터'] = lst_leveling_complete['캐릭터'].replace('\(원신\)','',regex=True)
     return lst_leveling_complete
 
-
+all_data('https://namu.wiki/w/%EC%9B%90%EC%8B%A0')
 
 
 #weapon_types = ['Swords','Claymores','Polearms','Catalysts','Bows']
